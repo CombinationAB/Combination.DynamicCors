@@ -21,7 +21,9 @@ namespace Combination.DynamicCors
             this.logger = logger;
         }
 
-        public Task Invoke(HttpContext context, Func<Task> next)
+        public Task Invoke(HttpContext context) => Invoke(context, null);
+
+        public Task Invoke(HttpContext context, Func<Task>? next)
         {
             var origin = string.Empty;
             var isReferer = false;
@@ -69,9 +71,13 @@ namespace Combination.DynamicCors
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
                 return Task.CompletedTask;
             }
-            else
+            else if (next != null)
             {
                 return next.Invoke();
+            }
+            else
+            {
+                return Task.CompletedTask;
             }
         }
     }
