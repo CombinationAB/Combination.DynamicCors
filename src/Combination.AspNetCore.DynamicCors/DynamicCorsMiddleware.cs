@@ -63,7 +63,7 @@ namespace Combination.DynamicCors
             }
             else if (!string.IsNullOrEmpty(origin))
             {
-                logger.LogWarning("CORS validation failed for origin: {0}", origin);
+                logger.LogWarning("CORS validation failed for origin: {0}. Methods: {1}. Hosts: {2}", origin, methods, allowedHosts.ToString());
             }
 
             if (context.Request.Method == HttpMethods.Options)
