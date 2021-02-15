@@ -1,0 +1,28 @@
+name: .NET
+
+on:
+  release:
+    types: [ published ]
+
+env:
+  projectName: Combination.AspNetCore.DynamicCors
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    - name: Test
+      run: dotnet test --no-build --no-restore --configuration Release --no-restore
+    - name: Publish
+      run: find . -name Combination.AspNetCore.DynamicCors\*.nupkg -exec dotnet nuget push -k ${{ secrets.NUGET_ORG_KEY }} {} \;
