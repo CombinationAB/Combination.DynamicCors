@@ -5,7 +5,7 @@ on:
     types: [ published ]
 
 env:
-  projectName: Combination.AspNetCore.DynamicCors
+  projectName: Combination.DynamicCors
 
 jobs:
   build:
@@ -21,8 +21,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --no-restore --configuration Release /p:Version=$(echo $GITHUB_REF | cut -d / -f 3)
     - name: Test
-      run: dotnet test --no-build --no-restore --configuration Release --no-restore
+      run: dotnet test --no-build --no-restore --configuration Release --no-restore /p:Version=$(echo $GITHUB_REF | cut -d / -f 3)
     - name: Publish
-      run: find . -name Combination.AspNetCore.DynamicCors\*.nupkg -exec dotnet nuget push -k ${{ secrets.NUGET_ORG_KEY }} {} \;
+      run: find . -name $projectName\*.nupkg -print0 | xargs -n 1 -0 dotnet nuget push --source https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_ORG_KEY }}
