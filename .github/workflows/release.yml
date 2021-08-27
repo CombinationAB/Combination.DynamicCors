@@ -6,6 +6,7 @@ on:
 
 env:
   projectName: Combination.DynamicCors
+  nugetSource: https://api.nuget.org/v3/index.json
 
 jobs:
   build:
@@ -25,4 +26,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --no-restore --configuration Release --no-restore /p:Version=$(echo $GITHUB_REF | cut -d / -f 3)
     - name: Publish
-      run: pwdw && find . -name $projectName\*.nupkg -print -exec dotnet nuget push -k ${{ secrets.NUGET_ORG_KEY }} {} \;
+      run: pwdw && find . -name $projectName\*.nupkg -print -exec dotnet nuget push -s $nugetSource -k ${{ secrets.NUGET_ORG_KEY }} {} \;
