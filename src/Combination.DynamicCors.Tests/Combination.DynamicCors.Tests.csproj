@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Combination.AspNetCore.DynamicCors\Combination.DynamicCors.csproj" />
+    <ProjectReference Include="..\Combination.DynamicCors\Combination.DynamicCors.csproj" />
   </ItemGroup>
 
 </Project>
