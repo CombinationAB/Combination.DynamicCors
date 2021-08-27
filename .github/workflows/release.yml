@@ -5,7 +5,7 @@ on:
     types: [ published ]
 
 env:
-  projectName: Combination.AspNetCore.DynamicCors
+  projectName: Combination.DynamicCors
 
 jobs:
   build:
