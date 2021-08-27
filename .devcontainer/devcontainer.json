@@ -10,6 +10,7 @@
   "extensions": [
     "ms-dotnettools.csharp",
     "editorconfig.editorconfig",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "formulahendry.dotnet-test-explorer"
   ]
 }
