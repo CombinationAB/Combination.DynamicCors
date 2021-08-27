@@ -23,7 +23,7 @@ namespace Combination.DynamicCors.Tests
 
         public IServiceProvider ApplicationServices { get; set; }
 
-        public IDictionary<string, object> Properties => throw new NotImplementedException();
+        public IDictionary<string, object?> Properties => throw new NotImplementedException();
 
         public IFeatureCollection ServerFeatures => throw new NotImplementedException();
 
