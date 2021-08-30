@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <Authors>Combination AB</Authors>
     <IsPackable>true</IsPackable>
+    <RepositoryUrl>https://github.com/CombinationAB/Combination.DynamicCors.git</RepositoryUrl> 
+    <RepositoryType>git</RepositoryType> 
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration) == 'Release'">
