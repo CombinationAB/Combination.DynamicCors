@@ -29,5 +29,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release /p:Version=$(echo $GITHUB_REF | cut -d / -f 3)
     - name: Test
       run: dotnet test --no-build --no-restore --configuration Release --no-restore /p:Version=$(echo $GITHUB_REF | cut -d / -f 3)
-    - name: Publish
+    - name: Publish to nuget.org
       run: find . -name $projectName\*.nupkg -print -exec dotnet nuget push -s $nugetSource -k ${{ secrets.NUGET_ORG_KEY }} {} \;
+    - name: Publish to GitHub packages
+      run: find . -name $projectName\*.nupkg -print -exec dotnet nuget push -s https://nuget.pkg.github.com/CombinationAB/index.json -k ${{ secrets.GITHUB_TOKEN }} {} \;
