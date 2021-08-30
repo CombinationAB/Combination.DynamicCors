@@ -12,12 +12,14 @@ namespace Combination.DynamicCors
     {
         private readonly Regex allowedHosts;
         private readonly string methods;
+        private readonly string headers;
         private readonly ILogger? logger;
 
-        public DynamicCorsMiddleware(Regex allowedHosts, string methods, ILogger<DynamicCorsMiddleware>? logger)
+        public DynamicCorsMiddleware(Regex allowedHosts, string methods, string headers, ILogger<DynamicCorsMiddleware>? logger)
         {
             this.allowedHosts = allowedHosts;
             this.methods = methods;
+            this.headers = headers;
             this.logger = logger;
         }
 
@@ -56,7 +58,7 @@ namespace Combination.DynamicCors
             if (!string.IsNullOrEmpty(origin) && allowedHosts.IsMatch(origin))
             {
                 context.Response.Headers.Add("Access-Control-Allow-Origin", isReferer ? "null" : origin);
-                context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Content-Length");
+                context.Response.Headers.Add("Access-Control-Allow-Headers", headers);
                 context.Response.Headers.Add("Access-Control-Allow-Methods", methods);
                 context.Response.Headers.Add("Access-Control-Max-Age", "86400");
                 context.Response.Headers.Add("Vary", "Origin");
