@@ -24,8 +24,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --configuration Release /p:Version=0.0.1-pre${{ env.GITHUB_RUN_NUMBER }
+      run: dotnet build --no-restore --configuration Release /p:Version=0.0.1-pre${{ env.GITHUB_RUN_NUMBER }}
     - name: Test
-      run: dotnet test --no-build --no-restore --configuration Release --no-restore /p:Version=0.0.1-pre${{ env.GITHUB_RUN_NUMBER }
+      run: dotnet test --no-build --no-restore --configuration Release --no-restore /p:Version=0.0.1-pre${{ env.GITHUB_RUN_NUMBER }}
     - name: Publish
       run: find . -name $projectName\*.nupkg -print -exec dotnet nuget push -s https://nuget.pkg.github.com/CombinationAB/index.json -k ${{ secrets.GITHUB_TOKEN }} {} \;
