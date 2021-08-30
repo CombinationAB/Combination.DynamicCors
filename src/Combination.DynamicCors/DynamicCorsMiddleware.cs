@@ -16,6 +16,7 @@ namespace Combination.DynamicCors
 
         public DynamicCorsMiddleware(Regex allowedHosts, string methods, ILogger<DynamicCorsMiddleware>? logger)
         {
+            // Test
             this.allowedHosts = allowedHosts;
             this.methods = methods;
             this.logger = logger;
