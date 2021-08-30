@@ -22,7 +22,19 @@ namespace Combination.DynamicCors
             return this;
         }
 
+        public IDynamicCorsFactory WithMethods(IReadOnlyCollection<string> methods)
+        {
+            Methods = methods.ToImmutableArray();
+            return this;
+        }
+
         public IDynamicCorsFactory WithHeaders(params string[] headers)
+        {
+            Headers = headers.ToImmutableArray();
+            return this;
+        }
+
+        public IDynamicCorsFactory WithHeaders(IReadOnlyCollection<string> headers)
         {
             Headers = headers.ToImmutableArray();
             return this;
