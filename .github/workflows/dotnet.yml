@@ -10,8 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      _github_token: secrets.GITHUB_TOKEN
 
     steps:
     - uses: actions/checkout@v2
@@ -26,9 +24,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore --configuration Release /p:Version=0.0.1-pre$GITHUB_RUN_NUMBER
+      run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --no-restore --configuration Release --no-restore /p:Version=0.0.1-pre$GITHUB_RUN_NUMBER
-    - if: env._github_token != ''
-      name: Publish
-      run: find . -name $projectName\*.nupkg -print -exec dotnet nuget push -s https://nuget.pkg.github.com/CombinationAB/index.json -k ${{ secrets.GITHUB_TOKEN }} {} \;
+      run: dotnet test --no-build --no-restore --configuration Release --no-restore
