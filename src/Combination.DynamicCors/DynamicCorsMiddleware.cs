@@ -61,12 +61,14 @@ namespace Combination.DynamicCors
                 context.Response.Headers.Add("Access-Control-Allow-Headers", headers);
                 context.Response.Headers.Add("Access-Control-Allow-Methods", methods);
                 context.Response.Headers.Add("Access-Control-Max-Age", "86400");
-                context.Response.Headers.Add("Vary", "Origin");
             }
             else if (!string.IsNullOrEmpty(origin))
             {
                 logger?.LogWarning("CORS validation failed for origin: {0}. Methods: {1}. Hosts: {2}", origin, methods, allowedHosts.ToString());
             }
+
+            // Vary: Origin is always supposed to be sent. https://stackoverflow.com/questions/25329405/why-isnt-vary-origin-response-set-on-a-cors-miss
+            context.Response.Headers.Add("Vary", "Origin");
 
             if (context.Request.Method == HttpMethods.Options)
             {
