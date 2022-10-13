@@ -28,6 +28,7 @@ namespace Combination.DynamicCors
         public Task Invoke(HttpContext context, Func<Task>? next)
         {
             var origin = string.Empty;
+            var host = string.Empty;
             var isReferer = false;
 
             if (context.Request.Headers.TryGetValue("Origin", out var value)
@@ -37,6 +38,12 @@ namespace Combination.DynamicCors
                 {
                     origin = originValue;
                 }
+            }
+
+            if (context.Request.Headers.TryGetValue("Host", out var value)
+                && value.FirstOrDefault() is string hostValue)
+            {
+                host = hostValue;
             }
 
             // Origin will be "null" for redirects
@@ -62,7 +69,7 @@ namespace Combination.DynamicCors
                 context.Response.Headers.Add("Access-Control-Allow-Methods", methods);
                 context.Response.Headers.Add("Access-Control-Max-Age", "86400");
             }
-            else if (!string.IsNullOrEmpty(origin))
+            else if (!string.IsNullOrEmpty(origin) && !origin.Equals(host, StringComparison.Ordinal))
             {
                 logger?.LogWarning("CORS validation failed for origin: {0}. Methods: {1}. Hosts: {2}", origin, methods, allowedHosts.ToString());
             }
