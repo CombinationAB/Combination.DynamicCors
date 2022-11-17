@@ -77,7 +77,6 @@ namespace Combination.DynamicCors
                     context.Response.Headers.Add("Access-Control-Expose-Headers", exposedHeaders);
                 }
 
-                context.Response.Headers.Add("Access-Control-Allow-Methods", methods);
                 context.Response.Headers.Add("Access-Control-Max-Age", "86400");
             }
             else if (!string.IsNullOrEmpty(origin))
