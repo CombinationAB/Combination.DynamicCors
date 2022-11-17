@@ -16,6 +16,15 @@ namespace Combination.DynamicCors
         private readonly string exposedHeaders;
         private readonly ILogger? logger;
 
+        public DynamicCorsMiddleware(Regex allowedHosts, string methods, string headers, ILogger<DynamicCorsMiddleware>? logger) : this(
+            allowedHosts,
+            methods,
+            headers,
+            string.Empty,
+            logger)
+        {
+        }
+
         public DynamicCorsMiddleware(Regex allowedHosts, string methods, string headers, string exposedHeaders, ILogger<DynamicCorsMiddleware>? logger)
         {
             this.allowedHosts = allowedHosts;
@@ -42,7 +51,8 @@ namespace Combination.DynamicCors
             }
 
             // Origin will be "null" for redirects
-            if (string.IsNullOrEmpty(origin) && context.Request.Headers.TryGetValue("Referer", out var referer)
+            if (string.IsNullOrEmpty(origin)
+                && context.Request.Headers.TryGetValue("Referer", out var referer)
                 && referer.FirstOrDefault() is string refererValue)
             {
                 var index = refererValue.IndexOf("//", StringComparison.InvariantCultureIgnoreCase) + 2;
