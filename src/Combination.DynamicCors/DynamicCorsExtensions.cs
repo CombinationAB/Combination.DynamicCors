@@ -47,7 +47,7 @@ namespace Combination
                 return applicationBuilder;
             }
 
-            var corsMiddleware = new DynamicCorsMiddleware(factory.Pattern, string.Join(", ", factory.Methods), string.Join(", ", factory.Headers), logger);
+            var corsMiddleware = new DynamicCorsMiddleware(factory.Pattern, string.Join(", ", factory.Methods), string.Join(", ", factory.Headers), string.Join(", ", factory.ExposedHeaders), logger);
             applicationBuilder.Use(corsMiddleware.Invoke);
             return applicationBuilder;
         }
@@ -62,7 +62,7 @@ namespace Combination
                 return endpointRouteBuilder;
             }
 
-            var corsMiddleware = new DynamicCorsMiddleware(factory.Pattern, string.Join(", ", factory.Methods), string.Join(", ", factory.Headers), logger);
+            var corsMiddleware = new DynamicCorsMiddleware(factory.Pattern, string.Join(", ", factory.Methods), string.Join(", ", factory.Headers), string.Join(", ", factory.ExposedHeaders), logger);
             endpointRouteBuilder.MapMethods(pattern, new[] { "OPTIONS" }, corsMiddleware.Invoke);
             return endpointRouteBuilder;
         }
