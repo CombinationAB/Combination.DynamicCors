@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 
@@ -13,6 +14,8 @@ namespace Combination.DynamicCors
         internal IReadOnlyCollection<string> Methods { get; private set; } = DefaultMethods;
 
         internal IReadOnlyCollection<string> Headers { get; private set; } = DefaultHeaders;
+
+        internal IReadOnlyCollection<string> ExposedHeaders { get; private set; } = Array.Empty<string>();
 
         internal Regex? Pattern { get; private set; }
 
@@ -31,6 +34,12 @@ namespace Combination.DynamicCors
         public IDynamicCorsFactory WithHeaders(params string[] headers)
         {
             Headers = headers.ToImmutableArray();
+            return this;
+        }
+
+        public IDynamicCorsFactory WithExposedHeaders(params string[] headers)
+        {
+            ExposedHeaders = headers.ToImmutableArray();
             return this;
         }
 
