@@ -15,6 +15,8 @@ namespace Combination.DynamicCors
 
         IDynamicCorsFactory WithHeaders(params string[] headers);
 
+        IDynamicCorsFactory WithExposedHeaders(params string[] headers);
+
         IDynamicCorsFactory WithHeaders(IReadOnlyCollection<string> headers);
     }
 }
